@@ -43,7 +43,7 @@ for /f "tokens=1,2 delims=." %%a in ("%ifn%") do (
 set ofn=%froot%-%size%mb.%fext%
 rem echo %ofn%
 
-c:\ffmpeg\ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 %ifn% > temp.txt
+c:\ffmpeg\bin\ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 %ifn% > temp.txt
 set /p duration=<temp.txt
 del temp.txt
 
@@ -60,5 +60,5 @@ if defined right if %right% GEQ 5 (
 set /a vbitrate=%size% *1024*1024*8/dur/1000-%abitrate%
 rem echo %vbitrate% %abitrate%
 
-c:\ffmpeg\ffmpeg -y -i %ifn% -c:v libx264 -preset medium -b:v %vbitrate%k -pass 1 -c:a aac -b:a %abitrate%k -f mp4 NUL && ^
-c:\ffmpeg\ffmpeg -i %ifn% -c:v libx264 -preset medium -b:v %vbitrate%k -pass 2 -c:a aac -b:a %abitrate%k %ofn%
+c:\ffmpeg\bin\ffmpeg -y -i %ifn% -c:v libx264 -preset medium -b:v %vbitrate%k -pass 1 -c:a aac -b:a %abitrate%k -f mp4 NUL && ^
+c:\ffmpeg\bin\ffmpeg -i %ifn% -c:v libx264 -preset medium -b:v %vbitrate%k -pass 2 -c:a aac -b:a %abitrate%k %ofn%
