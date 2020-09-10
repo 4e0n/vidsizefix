@@ -28,7 +28,7 @@ rem 40mb with H264 proper loss, over ffmpeg.
 @echo off
 
 rem --- Destination file size by default -> 40mb (change if needed)
-set /a size=49
+set /a size=46
 
 rem --- Audio bitrate
 set /a abitrate=128
