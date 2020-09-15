@@ -28,7 +28,7 @@ rem 40mb with H264 proper loss, over ffmpeg.
 @echo off
 
 rem --- Destination file size by default -> 40mb (change if needed)
-set /a size=46
+set /a size=40
 
 rem --- Audio bitrate
 set /a abitrate=128
@@ -57,8 +57,12 @@ if defined right if %right% GEQ 5 (
 ) else ( 
  set /a dur=%left%
 )
-set /a vbitrate=%size% *1024*1024*8/dur/1000-%abitrate%
+
+set /a vbitrate=%size% *1024*1024*8/dur/1000
+rem -%abitrate%
+echo %vbitrate%
+
 rem echo %vbitrate% %abitrate%
 
-c:\ffmpeg\bin\ffmpeg -y -i %ifn% -c:v libx264 -preset medium -b:v %vbitrate%k -pass 1 -c:a aac -b:a %abitrate%k -f mp4 NUL && ^
-c:\ffmpeg\bin\ffmpeg -i %ifn% -c:v libx264 -preset medium -b:v %vbitrate%k -pass 2 -c:a aac -b:a %abitrate%k %ofn%
+c:\ffmpeg\bin\ffmpeg -y -i %ifn% -c:v libx264 -preset medium -b:v %vbitrate%k -pass 1 -c:a copy -ac 1 -f mp4 NUL && ^
+c:\ffmpeg\bin\ffmpeg -i %ifn% -c:v libx264 -preset medium -b:v %vbitrate%k -pass 2 -c:a copy -ac 1 %ofn%
